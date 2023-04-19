@@ -3,7 +3,7 @@
 This is a repository for the paper: Efficient additive Gaussian process models for large scale data and application to NO2 concentration in London
 
 ### Repository structure
-The structure of the repository are something like
+The structure of the repository is something like ...
 
 ```
 ├── Code
@@ -15,19 +15,16 @@ The structure of the repository are something like
 |   |   └── GP_3d_kron_alltwoway_pred.stan *Same as above, but for prediction*
 │   ├── R
 |   |   ├── NO2_London_example.R *data analysis example with London NO2 data (with stan files, MCMC)*
-|   |   ├── NO2_London_data_mutation.R  *missing value imputation*
 |   |   ├── GP_helpers.R *Helper functions, including user specified kernels, to come*
 |   |   ├── GP_2d_kron.R *Model parameter estimation by optimising marginal likelihood, to come*
 |   |   └──
 │   └──Python
 │       ├── NO2_London_data_scraping.ipynb *data scraping*
-|       ├──
-|       └──
+|       └── NO2_London_example.ipynb *data analysis example with London
 └── Data
-    ├── London-NO2-raw.csv *NO2 concentration from monitoring stations*
-    ├── London-air-station.csv *information on monitoring stations*
-    └── NO2-imputation.csv *NO2 concentration from monitoring stations after imputation*
+    ├── London_air_station.csv *information on monitoring stations*
+    └── NO2_imputation_STadjust.csv *NO2 concentration from monitoring stations after imputation*
 ```
 
 ### Resource
-The raw data is collcted from [London Air](https://www.londonair.org.uk/)
+The raw data is collected from [London Air](https://www.londonair.org.uk/)
