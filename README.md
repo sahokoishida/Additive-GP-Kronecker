@@ -5,6 +5,7 @@ This is a repository for the paper: Efficient additive Gaussian process models f
 ### Repository structure
 The structure of the repository are something like
 
+```
 ├── Code
 │   ├── Stan
 │   │   ├── GP-helpers.stan *Collection of user-specified functions*
@@ -26,6 +27,7 @@ The structure of the repository are something like
     ├── London-NO2-raw.csv *NO2 concentration from monitoring stations*
     ├── London-air-station.csv *information on monitoring stations*
     └── NO2-imputation.csv *NO2 concentration from monitoring stations after imputation*
+```
 
 ### Resource
 The raw data is collcted from [London Air](https://www.londonair.org.uk/)
