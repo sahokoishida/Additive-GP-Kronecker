@@ -5,9 +5,9 @@ data {
   int<lower=1> N1;
   int<lower=1> N2;
   int<lower=1> N3;
-  int<lower=1> NN1;
-  int<lower=1> NN2;
-  int<lower=1> NN3;
+  int<lower=1> NN1 ;
+  int<lower=1> NN2 ;
+  int<lower=1> NN3 ;
   int<lower=1> D1;
   int<lower=1> D2;
   int<lower=1> D3;
