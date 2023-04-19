@@ -14,13 +14,13 @@ The structure of the repository is something like ...
 |   |   ├── GP_3d_kron_alltwoway_est.stan *For estimating model parameters in 3d grid structure data, but with 3d grid and all two-way interaction model*
 |   |   └── GP_3d_kron_alltwoway_pred.stan *Same as above, but for prediction*
 │   ├── R
-|   |   ├── NO2_London_example.R *data analysis example with London NO2 data (with stan files, MCMC)*
+|   |   ├── NO2_London_example.R *data analysis example with London NO2 data (with stan files, MCMC), to be updated*
 |   |   ├── GP_helpers.R *Helper functions, including user specified kernels, to come*
 |   |   ├── GP_2d_kron.R *Model parameter estimation by optimising marginal likelihood, to come*
 |   |   └──
 │   └──Python
-│       ├── NO2_London_data_scraping.ipynb *data scraping*
-|       └── NO2_London_example.ipynb *data analysis example with London
+│       ├── NO2_London_data_scraping.ipynb *data scraping, to come*
+|       └── NO2_London_example.ipynb *data analysis example with London to come*
 └── Data
     ├── London_air_station.csv *information on monitoring stations*
     └── NO2_imputation_STadjust.csv *NO2 concentration from monitoring stations after imputation*
