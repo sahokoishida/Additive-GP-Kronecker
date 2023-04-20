@@ -84,7 +84,7 @@ post_mean = fit$summary(variables = c("alpha0",'alpha1','alpha2','alpha3','sigma
 post_samples = fit$draws(format = "df",  inc_warmup = FALSE)
 post_samples$.chain = as.character(post_samples$.chain)
 gg = ggplot(data=post_samples, aes(x=.iteration, y = alpha3, color=.chain))+
-  geom_line() + theme_minimal(base_line_size = 14)
+  geom_line() + theme_minimal() 
 gg
 ```
 
@@ -100,9 +100,8 @@ site_list_test = c('CR5','TH4','KC1','BT5') # select monitoring stations of inte
 y_wide_test = df_NO2_observed[,site_list_test]
 df_site_test = df_site[df_site$SiteCode %in% site_list_test,]
 # make sure that data is in the right order
-df_site_test = df_site_test[order(df_site_test$SiteCode),]
+df_site_test = df_site_test[match(site_list_test, df_site_test$SiteCode),]
 df_site_test$SiteCode ==colnames(y_wide_test)
-
 S_test = as.matrix(cbind(df_site_test$Easting,df_site_test$Northing))/10000
 N1_test = dim(S_test)[1]
 N2_test = dim(y_wide)[1]/24 # if you are interested in shorter period, you can change here!
@@ -114,7 +113,7 @@ y_test = c(as.matrix(y_wide_test))
 ```
 Posterior (predictive) mean and variance. We do not have to use Stan for this unless you are interested in sampling from posterior, but since we have all the codes and helper functions written in Stan from estimation, let's stick with Stan for now. A code that is written solely in R will be uploaded soon.
 ```{r}
-file = paste0(path1,'/GP_3d_kron_alltwoway_pred.stan')
+file = paste0(path_stan,'/GP_3d_kron_alltwoway_pred.stan')
 mod = cmdstan_model(file)
 data = list(N1= N1, N2=N2, N3=N3, 
             NN1= as.integer(N/N1), NN2=as.integer(N/N2), NN3=as.integer(N/N3), 
@@ -151,7 +150,7 @@ f_mean$day = rep(rep(colMeans(as.matrix(predfit, pars = c(params[3]))),each = N3
 f_mean$hour = rep(colMeans(as.matrix(predfit, pars = c(params[4]))), times=(N1_test*N2_test))
 # two way
 f_mean$space_day = rep(colMeans(as.matrix(predfit, pars = c(params[5]))), each=N3_test)
-f_mean$space_hour = rep(0, N_tr)
+f_mean$space_hour = rep(0, N_test)
   t13tmp = colMeans(as.matrix(predfit, pars = c(params[6])))
   for (n1 in 1:N1_test){
     N23 = N3_test*N2_test
@@ -200,7 +199,7 @@ for (s in site_list_test){
   df_day_bysite = as.data.frame( matrix(ncol = 2, nrow=(num_weeks*7)))
   colnames(df_day_bysite) = c('NO2','date')
   df_day_bysite$NO2 = rowSums(df_plot_site[seq((24*7*(week_st-1)+1),(24*7*week_en),by=24),c('day','space_day')])
-  df_day_bysite$date = as.POSIXct( (df_NO2$date),tz='GMT')
+  df_day_bysite$date = seq(as.POSIXct("2020/1/6", tz='GMT'), as.POSIXct("2020/5/31", tz='GMT'), by = 'days')
   gg = ggplot() +
     geom_rect(data = rects, aes(xmin = xstart, xmax = xend, ymin = -Inf, ymax = Inf, fill = col), alpha = 0.3) +
     geom_line(data = df_day_bysite, aes(x=date, y=NO2), show.legend = FALSE) +
