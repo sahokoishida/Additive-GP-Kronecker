@@ -49,7 +49,7 @@ matrix sq_cen_kernel_mat(matrix X, int N, real Hurst){
   matrix[N, N] B = rep_matrix(0, N, N);;
   vector[N] d;
   matrix[N, N] A = diag_matrix(rep_vector(1,N)) - (1.0/N)*rep_matrix(1, N, N);
-  matrix[N, N]  Xcp = X * X' ;
+  matrix[N, N] Xcp = X * X' ;
   vector[N] dvec = diagonal(Xcp);
   for (i in 1:(N-1)){
     d[i] = pow(fabs(dvec[i]), Hurst);
