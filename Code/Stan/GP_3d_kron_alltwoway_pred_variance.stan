@@ -91,7 +91,7 @@ transformed data {
             Q2 = eigenvectors_sym(Ksq);
             l2 = eval_zero(l2, k, N2);
             if (k>1){
-                Q1 = GS_complete(Q2, k, N2);
+                Q2 = GS_complete(Q2, k, N2);
             } else {
               Q2[,1] = rep_vector(1/sqrt(N2),N2);
             }
@@ -139,14 +139,14 @@ transformed data {
         d2[1] = N2;
         d3[1] = N3;
         {
-          vector[N] t0 = square(alpha0)*to_vector(to_vector(d3*d2')*d1');
+          vector[N] t0 = to_vector(to_vector(d3*d2')*d1');
           vector[N] t1 = to_vector(to_vector(d3*d2')*e1');
           vector[N] t2 = to_vector(to_vector(d3*e2')*d1');
           vector[N] t3 = to_vector(to_vector(e3*d2')*d1');
           vector[N] t12 = to_vector(to_vector(d3*e2')*e1');
           vector[N] t13 = to_vector(to_vector(e3*d2')*e1');
           vector[N] t23 = to_vector(to_vector(e3*e2')*d1');
-          eval = t0 + t1 + t2 + t3 + t12 + t13 + t23 + square(sigma)*rep_vector(1,N);
+          eval = square(alpha0)*(t0 + t1 + t2 + t3 + t12 + t13 + t23) + square(sigma)*rep_vector(1,N);
          }
       }
 
@@ -158,8 +158,8 @@ transformed data {
       vector[N1] one1 =  rep_vector(1,N1);
       vector[N2] one2 =  rep_vector(1,N2);
       vector[N3] one3 =  rep_vector(1,N3);
-      v_star[1] = square(alpha0);
-      k_vec[1] = square(alpha0) * rep_vector(1,N);
+      v_star[1] = 1;
+      k_vec[1] =  rep_vector(1,N);
       for (n1 in 1:N1_new){
         real v_all;
         vector[N] z;
@@ -198,9 +198,9 @@ transformed data {
               k_vec[3+1+3] = to_vector(to_vector(k3*k2')*one1');
             }
             ix = pos[1] + pos[2] + n3 ;
-            v_all = v_star[1] + v_star[2] + v_star[3] + v_star[4] +  v_star[5] +  v_star[6] + v_star[7];
+            v_all = square(alpha0)*(v_star[1] + v_star[2] + v_star[3] + v_star[4] +  v_star[5] +  v_star[6] + v_star[7]);
             {
-              vector[N] k_vec_all = k_vec[1] +  k_vec[2] + k_vec[3] + k_vec[4] + k_vec[5] + k_vec[6] + k_vec[7];
+              vector[N] k_vec_all = square(alpha0)*(k_vec[1] +  k_vec[2] + k_vec[3] + k_vec[4] + k_vec[5] + k_vec[6] + k_vec[7]);
               // computing Q^\top*k_vec ;
               vector[N] s = k_vec_all;
               s = mat_vec_prod(Q3', s, N3, NN3);
