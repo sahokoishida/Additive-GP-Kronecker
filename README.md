@@ -27,6 +27,7 @@ The structure of the repository is something like ...
     └── NO2_imputation_STadjust.csv *NO2 concentration from monitoring stations after imputation*
 
 ```
+The main file for data analysis is `NO2_London_example.R`. 
 
 ### Resource
 The raw data is collected from [London Air](https://www.londonair.org.uk/)
