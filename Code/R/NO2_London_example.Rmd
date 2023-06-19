@@ -30,7 +30,7 @@ df_site$SiteCode == colnames(y_wide)
 ```
 
 ### Hyper-parameter estimation by MCMC
-Extraxt necessary data to feed to stan file
+Extract necessary data to feed to stan file
 ```{r}
 S = as.matrix(cbind(df_site$Easting,df_site$Northing))/10000
 N1 = dim(S)[1]
@@ -82,8 +82,8 @@ post_mean = fit$summary(variables = c("alpha0",'alpha1','alpha2','alpha3','sigma
 
 ```{r}
 post_samples = fit$draws(format = "df",  inc_warmup = FALSE)
-post_samples$.chain = as.character(post_samples$.chain)
-gg = ggplot(data=post_samples, aes(x=.iteration, y = alpha3, color=.chain))+
+post_samples$chain = as.character(post_samples$.chain)
+gg = ggplot(data=post_samples, aes(x=.iteration, y = alpha3, color=chain))+
   geom_line() + theme_minimal() 
 gg
 ```
