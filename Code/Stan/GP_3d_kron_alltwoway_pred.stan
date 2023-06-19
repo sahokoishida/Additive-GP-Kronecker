@@ -95,7 +95,7 @@ transformed data {
             Q2 = eigenvectors_sym(Ksq);
             l2 = eval_zero(l2, k, N2);
             if (k>1){
-                Q1 = GS_complete(Q2, k, N2);
+                Q2 = GS_complete(Q2, k, N2);
             } else {
               Q2[,1] = rep_vector(1/sqrt(N2),N2);
             }
@@ -143,14 +143,14 @@ transformed data {
         d2[1] = N2;
         d3[1] = N3;
         {
-          vector[N] t0 = square(alpha0)*to_vector(to_vector(d3*d2')*d1');
+          vector[N] t0 = to_vector(to_vector(d3*d2')*d1');
           vector[N] t1 = to_vector(to_vector(d3*d2')*e1');
           vector[N] t2 = to_vector(to_vector(d3*e2')*d1');
           vector[N] t3 = to_vector(to_vector(e3*d2')*d1');
           vector[N] t12 = to_vector(to_vector(d3*e2')*e1');
           vector[N] t13 = to_vector(to_vector(e3*d2')*e1');
           vector[N] t23 = to_vector(to_vector(e3*e2')*d1');
-          eval = t0 + t1 + t2 + t3 + t12 + t13 + t23 + square(sigma)*rep_vector(1,N);
+          eval = square(alpha0)*(t0 + t1 + t2 + t3 + t12 + t13 + t23) + square(sigma)*rep_vector(1,N);
           m_div_eval = m ./ eval ;
          }
       }
@@ -173,9 +173,9 @@ transformed data {
           vector[N1+1] ktmp = sq_cen_kernel_vec(K1, Browsum1, X1, X1_new[n1,], N1, Hurst1, alpha1);
           Qk1 = Q1' * ktmp[1:N1] ;
           v1 = ktmp[N1+1];
-          z1 = to_vector(to_vector(Qv3*Qv2')*Qk1');
+          z1 = square(alpha0) * to_vector(to_vector(Qv3*Qv2')*Qk1');
           f_new1[1, n1] = z1' * m_div_eval;
-          f_new1[2, n1] = v1 - sum(square(z1)./eval);
+          f_new1[2, n1] = square(alpha0) * v1 - sum(square(z1)./eval);
         }
         //pos[1] = (n1-1)*(N3_new*N2_new) ;
         for (n2 in 1:N2_new){
@@ -187,14 +187,14 @@ transformed data {
             vector[N] z12;
             vector[N2+1] ktmp = sq_cen_kernel_vec(K2, Browsum2, X2, X2_new[n2,], N2, Hurst2, alpha2);
             Qk2 = Q2' * ktmp[1:N2];
-            z2 = to_vector(to_vector(Qv3*Qk2')*Qv1');
-            z12 = to_vector(to_vector(Qv3*Qk2')*Qk1');
+            z2 = square(alpha0) * to_vector(to_vector(Qv3*Qk2')*Qv1');
+            z12 = square(alpha0) * to_vector(to_vector(Qv3*Qk2')*Qk1');
             v2= ktmp[N2+1];
             v12 = v1 * v2 ; //v12 = inteaction between 1 and 2
             f_new2[1, n2] = z2' * m_div_eval;
-            f_new2[2, n2] = v2 - sum(square(z2)./eval);
+            f_new2[2, n2] = square(alpha0) * v2 - sum(square(z2)./eval);
             f_new12[1, (n1-1)*N2_new + n2] = z12' * m_div_eval;
-            f_new12[2, (n1-1)*N2_new + n2] = v12 - sum(square(z12)./eval);
+            f_new12[2, (n1-1)*N2_new + n2] = square(alpha0) * v12 - sum(square(z12)./eval);
           }
           //pos[2] = (n2-1)*(N3_new);
           for (n3 in 1:N3_new){
@@ -207,18 +207,18 @@ transformed data {
             vector[N] z23;
             vector[N3+1] ktmp = sq_cen_kernel_vec(K3, Browsum3, X3, X3_new[n3,], N3, Hurst3, alpha3);
             Qk3 = Q3' * ktmp[1:N3];
-            z3 = to_vector(to_vector(Qk3*Qv2')*Qv1');
-            z13 = to_vector(to_vector(Qk3*Qv2')*Qk1');
-            z23 = to_vector(to_vector(Qk3*Qk2')*Qv1');
+            z3 = square(alpha0) * to_vector(to_vector(Qk3*Qv2')*Qv1');
+            z13 = square(alpha0) * to_vector(to_vector(Qk3*Qv2')*Qk1');
+            z23 = square(alpha0) * to_vector(to_vector(Qk3*Qk2')*Qv1');
             v3 = ktmp[N3+1];
             v13 = v1 * v3; //v13 = inteaction between 1 and 3
             v23 = v2 * v3; //v23 =inteaction between 2 and 3
             f_new3[1, n3] = z3' * m_div_eval;
-            f_new3[2, n3] = v3 - sum(square(z3)./eval);
+            f_new3[2, n3] = square(alpha0) * v3 - sum(square(z3)./eval);
             f_new13[1, (n1-1)*N3_new + n3] = z13' * m_div_eval;
-            f_new13[2, (n1-1)*N3_new + n3] = v13 - sum(square(z13)./eval);
+            f_new13[2, (n1-1)*N3_new + n3] = square(alpha0) * v13 - sum(square(z13)./eval);
             f_new23[1, (n2-1)*N3_new + n3] = z23' * m_div_eval;
-            f_new23[2, (n2-1)*N3_new + n3] = v23 - sum(square(z23)./eval);
+            f_new23[2, (n2-1)*N3_new + n3] = square(alpha0) * v23 - sum(square(z23)./eval);
           }
         }
       }
