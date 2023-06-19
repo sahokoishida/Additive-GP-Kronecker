@@ -112,14 +112,14 @@ model {
     d2[1] = N2;
     d3[1] = N3;
     {
-      vector[N] t0 = square(alpha0)*to_vector(to_vector(d3*d2')*d1');
+      vector[N] t0 = to_vector(to_vector(d3*d2')*d1');
       vector[N] t1 = to_vector(to_vector(d3*d2')*e1');
       vector[N] t2 = to_vector(to_vector(d3*e2')*d1');
       vector[N] t3 = to_vector(to_vector(e3*d2')*d1');
       vector[N] t12 = to_vector(to_vector(d3*e2')*e1');
       vector[N] t13 = to_vector(to_vector(e3*d2')*e1');
       vector[N] t23 = to_vector(to_vector(e3*e2')*d1');
-      eval = t0 + t1 + t2 + t3 + t12 + t13 + t23 + square(sigma)*rep_vector(1,N);
+      eval = square(alpha0)*(t0 + t1 + t2 + t3 + t12 + t13 + t23) + square(sigma)*rep_vector(1,N);
      }
   }
   //prior
