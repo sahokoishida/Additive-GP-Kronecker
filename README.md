@@ -1,6 +1,6 @@
 # Additive-GP-Kronecker
 
-This is a repository for the paper: Efficient additive Gaussian process models for large scale data and application to NO2 concentration in London
+This is a repository for the [paper](https://arxiv.org/abs/2305.07073) : Efficient additive Gaussian process models for large scale data and application to NO2 concentration in London
 
 ### Repository structure
 The structure of the repository is something like ...
@@ -22,8 +22,10 @@ The structure of the repository is something like ...
 │       ├── NO2_London_data_scraping.ipynb *data scraping, to come*
 |       └── NO2_London_example.ipynb *data analysis example with London to come*
 └── Data
-    ├── London_air_station.csv *information on monitoring stations*
+    ├── London_air_station.csv *information on monitoring stations*v
+    ├── NO2_STadjust.csv *NO2 concentration from monitoring stations*
     └── NO2_imputation_STadjust.csv *NO2 concentration from monitoring stations after imputation*
+
 ```
 
 ### Resource
