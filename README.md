@@ -30,7 +30,7 @@ The structure of the repository is something like ...
 └──  Supplement.pdf *Supplement material to the paper*
 
 ```
-The main file for data analysis is `NO2_London_example.R` which demonstrates how to use Stan files for estimation and prediction with the all two-way interaction model (Model 3). To implement other models, modify the Stan files (an example given for the saturated model, see `GP_3d_kron_saturated_est.stan` and `GP_3d_kron_saturated_pred.stan` ) to add / remove selected interaction terms. If anything interested using and modifying the code to your project, feel free to contact me from my [website](https://sahokoishida.github.io)
+The main file for data analysis is `NO2_London_example.R` which demonstrates how to use Stan files for estimation and prediction with the all two-way interaction model (Model 3). To implement other models, modify the Stan files (an example given for the saturated model, see `GP_3d_kron_saturated_est.stan` and `GP_3d_kron_saturated_pred.stan` ) to add / remove selected interaction terms. If interested using and modifying the code to your project, feel free to contact me from my [website](https://sahokoishida.github.io)
 
 ### Resource
 The raw data is collected from [London Air](https://www.londonair.org.uk/)
